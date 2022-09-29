@@ -6,7 +6,7 @@
            Users
            Team
                Name, Location, Ranking
-           Games
+           Game
                Teams (2) with home/away assignment, Time/Date
 #
 2. Analyze in reference to rules of fantasy league
