@@ -4,6 +4,10 @@ import json
 from urllib import response
 import requests
 
+
+## Services for Player class
+##
+
 def get_player(id):
     response = requests.get("https://statsapi.web.nhl.com/api/v1/people/{}".format(id), params={"Content-Type": "application/json"})
     json_data = response.json()
@@ -15,6 +19,17 @@ def get_player(id):
 
 from Constants import *
 
+def get_game_log(id):
+    response = requests.get("https://statsapi.web.nhl.com/api/v1/people/{}/stats?stats=gameLog&season={}".format(id,CURRENT_SEASON), params={"Content-Type": "application/json"})
+    json_data = response.json()
+    game_log = json_data['stats'][0]['splits']
+    # print (game_log[0])
+    # gamePK "The Game" = The first 4 digits identify the season of the game (ie. 2017 for the 2017-2018 season). The next 2 digits give the type of game, where 01 = preseason, 02 = regular season, 03 = playoffs, 04 = all-star. The final 4 digits identify the specific game number. 
+    return game_log
+#test print   
+# get_game_log(8471214)
+
+
 def single_season_stat(id):
     response = requests.get("https://statsapi.web.nhl.com/api/v1/people/{}/stats?stats=statsSingleSeason&season={}".format(id,CURRENT_SEASON), params={"Content-Type": "application/json"})
     json_data = response.json()
@@ -24,15 +39,6 @@ def single_season_stat(id):
 #test print   
 # single_season_stat(8471214)
 
-
-def get_game_log(id):
-    response = requests.get("https://statsapi.web.nhl.com/api/v1/people/{}/stats?stats=gameLog&season={}".format(id,CURRENT_SEASON), params={"Content-Type": "application/json"})
-    json_data = response.json()
-    game_log = json_data['stats'][0]['splits']
-    # print (game_log[0])
-    return game_log
-#test print   
-# get_game_log(8471214)
 
 def div_stat_split(id):
     response = requests.get("https://statsapi.web.nhl.com/api/v1/people/{}/stats?stats=vsDivision&season={}".format(id,CURRENT_SEASON), params={"Content-Type": "application/json"})
@@ -71,3 +77,44 @@ def home_away_split(id):
     json_data = response.json()
     home_away = json_data['stats'][0]['splits']
     return home_away
+
+
+def win_loss_split(id):
+    response = requests.get("https://statsapi.web.nhl.com/api/v1/people/{}/stats?stats=winLoss&season={}".format(id,CURRENT_SEASON), params={"Content-Type": "application/json"})
+    json_data = response.json()
+    win_loss = json_data['stats'][0]['splits']
+    return win_loss
+
+
+def player_schedule(id):
+    ## needs to look up the player's team and then pull the teams schedule for the player
+    # response = requests.get("https://statsapi.web.nhl.com/api/v1/people/{}/stats?stats=winLoss&season={}".format(id,CURRENT_SEASON), params={"Content-Type": "application/json"})
+    # json_data = response.json()
+    # win_loss = json_data['stats'][0]['splits']
+    # return win_loss
+
+
+
+## Services for Game class
+##
+
+def game_box(id):
+    response = requests.get("https://statsapi.web.nhl.com/api/v1/game/{}/boxscore".format(id), params={"Content-Type": "application/json"})
+    json_data = response.json()
+    game_box = json_data['teams']
+    print (game_box)
+    return game_box
+#test print   
+# game_box(2021021265)
+
+def game_live(id):
+    response = requests.get("https://statsapi.web.nhl.com/api/v1/game/{}/feed/live".format(id), params={"Content-Type": "application/json"})
+    json_data = response.json()
+    game_live = json_data
+    print (game_live)
+    return game_live
+
+
+## Services for Team class
+##
+
