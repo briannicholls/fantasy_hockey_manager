@@ -118,9 +118,28 @@ def game_live(id):
 ## Services for Team class
 ##
 
+
+def team_IDs():
+    response = requests.get("https://statsapi.web.nhl.com/api/v1/teams", params={"Content-Type": "application/json"})
+    json_data = response.json()
+    team_IDs = json_data['teams']
+    # print (team_IDs)
+    return team_IDs
+
+
 def team_schedule(id):
     response = requests.get("https://statsapi.web.nhl.com/api/v1/schedule?teamId={}&startDate={}&endDate={}".format(id,START_DATE,END_DATE), params={"Content-Type": "application/json"})
     json_data = response.json()
     team_schedule = json_data
     print (team_schedule)
     return team_schedule
+
+
+def team_roster(id):
+    response = requests.get("https://statsapi.web.nhl.com/api/v1/teams/{}?expand=team.roster".format(id), params={"Content-Type": "application/json"})
+    json_data = response.json()
+    team_roster = json_data['teams'][0]['roster']['roster']
+    print (team_roster)
+    return team_roster
+
+

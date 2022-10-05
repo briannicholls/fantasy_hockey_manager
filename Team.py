@@ -5,4 +5,6 @@ class Team:
 
     self.schedule = team_schedule(ID)
 
+    self.roster = team_roster(ID)
+
   
