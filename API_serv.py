@@ -87,6 +87,7 @@ def win_loss_split(id):
 
 
 def player_schedule(id):
+    pass
     ## needs to look up the player's team and then pull the teams schedule for the player
     # response = requests.get("https://statsapi.web.nhl.com/api/v1/people/{}/stats?stats=winLoss&season={}".format(id,CURRENT_SEASON), params={"Content-Type": "application/json"})
     # json_data = response.json()
@@ -102,19 +103,24 @@ def game_box(id):
     response = requests.get("https://statsapi.web.nhl.com/api/v1/game/{}/boxscore".format(id), params={"Content-Type": "application/json"})
     json_data = response.json()
     game_box = json_data['teams']
-    print (game_box)
+    # print (game_box)
     return game_box
-#test print   
-# game_box(2021021265)
+
 
 def game_live(id):
     response = requests.get("https://statsapi.web.nhl.com/api/v1/game/{}/feed/live".format(id), params={"Content-Type": "application/json"})
     json_data = response.json()
     game_live = json_data
-    print (game_live)
+    # print (game_live)
     return game_live
 
 
 ## Services for Team class
 ##
 
+def team_schedule(id):
+    response = requests.get("https://statsapi.web.nhl.com/api/v1/schedule?teamId={}&startDate={}&endDate={}".format(id,START_DATE,END_DATE), params={"Content-Type": "application/json"})
+    json_data = response.json()
+    team_schedule = json_data
+    print (team_schedule)
+    return team_schedule
