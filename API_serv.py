@@ -46,6 +46,18 @@ def div_stat_split(id):
     div_stats = json_data['stats'][0]['splits']
     return div_stats
 
+# NEW THINGS
+# params:
+#   endpoint: '/people/:id/stats'
+def http_get(endpoint, params={}):
+    params_string = format_params_to_string(params)
+    api_response = requests.get("{BASE_URL}/{endpoint}?{params_string}".format(id,CURRENT_SEASON), params={"Content-Type": "application/json"})
+    return api_response.json()
+
+def div_stat_splitp(player_id):
+    player_stats_response = http_get('/people/{player_id}/stats', { "stats": "byMonth" })
+    return player_stats_response['stats'][0]['splits']
+# END NEW THINGS
 
 def mon_stat_split(id):
     response = requests.get("https://statsapi.web.nhl.com/api/v1/people/{}/stats?stats=byMonth&season={}".format(id,CURRENT_SEASON), params={"Content-Type": "application/json"})
