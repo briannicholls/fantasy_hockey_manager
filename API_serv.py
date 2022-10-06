@@ -9,7 +9,7 @@ import requests
 ##
 
 def get_player(id):
-    response = requests.get("https://statsapi.web.nhl.com/api/v1/people/{}".format(id), params={"Content-Type": "application/json"})
+    response = requests.get("{}/people/{}".format(id), params={"Content-Type": "application/json"})
     json_data = response.json()
     # print(json_data['people'][0]['fullName'])
     return json_data['people'][0]   
@@ -20,7 +20,7 @@ def get_player(id):
 from Constants import *
 
 def get_game_log(id):
-    response = requests.get("https://statsapi.web.nhl.com/api/v1/people/{}/stats?stats=gameLog&season={}".format(id,CURRENT_SEASON), params={"Content-Type": "application/json"})
+    response = requests.get("{}/people/{}/stats?stats=gameLog&season={}".format(id,CURRENT_SEASON), params={"Content-Type": "application/json"})
     json_data = response.json()
     game_log = json_data['stats'][0]['splits']
     # print (game_log[0])
@@ -31,7 +31,7 @@ def get_game_log(id):
 
 
 def single_season_stat(id):
-    response = requests.get("https://statsapi.web.nhl.com/api/v1/people/{}/stats?stats=statsSingleSeason&season={}".format(id,CURRENT_SEASON), params={"Content-Type": "application/json"})
+    response = requests.get("{}/people/{}/stats?stats=statsSingleSeason&season={}".format(id,CURRENT_SEASON), params={"Content-Type": "application/json"})
     json_data = response.json()
     season_stat = json_data['stats'][0]['splits'][0]
     # print (season_stat)
@@ -41,46 +41,63 @@ def single_season_stat(id):
 
 
 def div_stat_split(id):
-    response = requests.get("https://statsapi.web.nhl.com/api/v1/people/{}/stats?stats=vsDivision&season={}".format(id,CURRENT_SEASON), params={"Content-Type": "application/json"})
+    response = requests.get("{}/people/{}/stats?stats=vsDivision&season={}".format(id,CURRENT_SEASON), params={"Content-Type": "application/json"})
     json_data = response.json()
     div_stats = json_data['stats'][0]['splits']
     return div_stats
 
+# NEW THINGS
+# params:
+#   endpoint: '/people/:id/stats'
+def http_get(endpoint, params={}):
+    params_string = format_params_to_string(params)
+    api_response = requests.get("{BASE_URL}/{endpoint}?{params_string}".format(id,CURRENT_SEASON), params={"Content-Type": "application/json"})
+    return api_response.json()
+
+def div_stat_splitp(player_id):
+    player_stats_response = http_get('/people/{player_id}/stats', { "stats": "byMonth" })
+    return player_stats_response['stats'][0]['splits']
+# END NEW THINGS
 
 def mon_stat_split(id):
-    response = requests.get("https://statsapi.web.nhl.com/api/v1/people/{}/stats?stats=byMonth&season={}".format(id,CURRENT_SEASON), params={"Content-Type": "application/json"})
+    response = requests.get("{}/people/{}/stats?stats=byMonth&season={}".format(id,CURRENT_SEASON), params={"Content-Type": "application/json"})
     json_data = response.json()
     mon_stat = json_data['stats'][0]['splits']
     return mon_stat
 
 def week_stat_split(id):
-    response = requests.get("https://statsapi.web.nhl.com/api/v1/people/{}/stats?stats=byDayOfWeek&season={}".format(id,CURRENT_SEASON), params={"Content-Type": "application/json"})
+    response = requests.get("{}/people/{}/stats?stats=byDayOfWeek&season={}".format(id,CURRENT_SEASON), params={"Content-Type": "application/json"})
     json_data = response.json()
     week_stat = json_data['stats'][0]['splits']
     return week_stat
 
 def vs_league_stat(id):
-    response = requests.get("https://statsapi.web.nhl.com/api/v1/people/{}/stats?stats=regularSeasonStatRankings&season={}".format(id,CURRENT_SEASON), params={"Content-Type": "application/json"})
+    response = requests.get("{}/people/{}/stats?stats=regularSeasonStatRankings&season={}".format(id,CURRENT_SEASON), params={"Content-Type": "application/json"})
     json_data = response.json()
     league_stat = json_data['stats'][0]['splits']
     return league_stat
 
 def reg_season_pace(id):
     #only works in season
-    response = requests.get("https://statsapi.web.nhl.com/api/v1/people/{}/stats?stats=onPaceRegularSeason&season={}".format(id,CURRENT_SEASON), params={"Content-Type": "application/json"})
+    response = requests.get("{}/people/{}/stats?stats=onPaceRegularSeason&season={}".format(id,CURRENT_SEASON), params={"Content-Type": "application/json"})
     json_data = response.json()
     season_pace = json_data['stats'][0]['splits']
     return season_pace
 
+def reg_season_pace(id):
+    return requests.get(
+        "{}/people/{}/stats?stats=onPaceRegularSeason&season={}".format(id,CURRENT_SEASON), params={"Content-Type": "application/json"}
+    ).json()['stats'][0]['splits']
+
 def home_away_split(id):
-    response = requests.get("https://statsapi.web.nhl.com/api/v1/people/{}/stats?stats=homeAndAway&season={}".format(id,CURRENT_SEASON), params={"Content-Type": "application/json"})
+    response = requests.get("{}/people/{}/stats?stats=homeAndAway&season={}".format(id,CURRENT_SEASON), params={"Content-Type": "application/json"})
     json_data = response.json()
     home_away = json_data['stats'][0]['splits']
     return home_away
 
 
 def win_loss_split(id):
-    response = requests.get("https://statsapi.web.nhl.com/api/v1/people/{}/stats?stats=winLoss&season={}".format(id,CURRENT_SEASON), params={"Content-Type": "application/json"})
+    response = requests.get("{}/people/{}/stats?stats=winLoss&season={}".format(id,CURRENT_SEASON), params={"Content-Type": "application/json"})
     json_data = response.json()
     win_loss = json_data['stats'][0]['splits']
     return win_loss
@@ -89,7 +106,7 @@ def win_loss_split(id):
 def player_schedule(id):
     pass
     ## needs to look up the player's team and then pull the teams schedule for the player
-    # response = requests.get("https://statsapi.web.nhl.com/api/v1/people/{}/stats?stats=winLoss&season={}".format(id,CURRENT_SEASON), params={"Content-Type": "application/json"})
+    # response = requests.get("{}/people/{}/stats?stats=winLoss&season={}".format(id,CURRENT_SEASON), params={"Content-Type": "application/json"})
     # json_data = response.json()
     # win_loss = json_data['stats'][0]['splits']
     # return win_loss
@@ -100,7 +117,7 @@ def player_schedule(id):
 ##
 
 def game_box(id):
-    response = requests.get("https://statsapi.web.nhl.com/api/v1/game/{}/boxscore".format(id), params={"Content-Type": "application/json"})
+    response = requests.get("{}/game/{}/boxscore".format(id), params={"Content-Type": "application/json"})
     json_data = response.json()
     game_box = json_data['teams']
     # print (game_box)
@@ -108,7 +125,7 @@ def game_box(id):
 
 
 def game_live(id):
-    response = requests.get("https://statsapi.web.nhl.com/api/v1/game/{}/feed/live".format(id), params={"Content-Type": "application/json"})
+    response = requests.get("{}/game/{}/feed/live".format(id), params={"Content-Type": "application/json"})
     json_data = response.json()
     game_live = json_data
     # print (game_live)
@@ -120,7 +137,7 @@ def game_live(id):
 
 
 def team_IDs():
-    response = requests.get("https://statsapi.web.nhl.com/api/v1/teams", params={"Content-Type": "application/json"})
+    response = requests.get("{}/teams", params={"Content-Type": "application/json"})
     json_data = response.json()
     team_IDs = json_data['teams']
     # print (team_IDs)
@@ -128,7 +145,7 @@ def team_IDs():
 
 
 def team_schedule(id):
-    response = requests.get("https://statsapi.web.nhl.com/api/v1/schedule?teamId={}&startDate={}&endDate={}".format(id,START_DATE,END_DATE), params={"Content-Type": "application/json"})
+    response = requests.get("{}/schedule?teamId={}&startDate={}&endDate={}".format(id,START_DATE,END_DATE), params={"Content-Type": "application/json"})
     json_data = response.json()
     team_schedule = json_data
     print (team_schedule)
@@ -136,7 +153,7 @@ def team_schedule(id):
 
 
 def team_roster(id):
-    response = requests.get("https://statsapi.web.nhl.com/api/v1/teams/{}?expand=team.roster".format(id), params={"Content-Type": "application/json"})
+    response = requests.get("{}/teams/{}?expand=team.roster".format(id), params={"Content-Type": "application/json"})
     json_data = response.json()
     team_roster = json_data['teams'][0]['roster']['roster']
     print (team_roster)
