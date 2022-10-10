@@ -18,7 +18,7 @@ ENDPOINT_DICT=  {
     'sit_goals' :       '/people/{}/stats?stats=goalsByGameSituation&season={}',
     'day_split' :       '/people/{}/stats?stats=byDayOfWeek&season={}',
     'home_away_split' : '/people/{}/stats?stats=homeAndAway&season={}',
-    'win_loss_split' :  'people/{}/stats?stats=winLoss&season={}',
+    'win_loss_split' :  '/people/{}/stats?stats=winLoss&season={}',
     'game_box' :        '/game/{}/boxscore',
     'game_live' :       '/game/{}/feed/live',
     'team_id' :         '/teams',

@@ -1,10 +1,11 @@
 # Use NHL API service to collect and update information about Players, Teams, Games, etc.
 from cmd import IDENTCHARS
 import json
-from tkinter import END
 from urllib import response
 import requests
 from Constants import *
+from functools import reduce
+import operator 
 #########################################################################################
 ### http get to retrieve NHL API JSON
 
@@ -111,7 +112,8 @@ def team_schedule(team_id):
 
 def team_roster(team_id):
     team_roster = http_get(ENDPOINT_DICT['team_roster'].format(team_id))
-    return team_roster['dates']
+    return team_roster['teams'][0]['roster']['roster']
+
 
 
   
