@@ -100,9 +100,10 @@ def game_live(game_id):
 ##
 
 
+# get all teams
 def team_id():
-    team_id = http_get(ENDPOINT_DICT['team_id'])
-    return team_id['teams']
+    response = http_get(ENDPOINT_DICT['team_id'])
+    return response['teams']
 
 
 def team_schedule(team_id):
