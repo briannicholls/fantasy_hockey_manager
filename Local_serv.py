@@ -2,7 +2,7 @@ from functools import reduce
 import operator 
 from API_serv import *
 from Player import *
-
+from Team import Team
 #########################################################################################
 # Services for local handling
 #########################################################################################
@@ -14,12 +14,22 @@ def get_active_teams():
     # get all active team IDs
     NHL_team_IDs = []
     teams = team_id()
-    team_count = 0
 
-    while team_count < 32:
-        NHL_team_IDs.append(teams[team_count]['id'])
-        team_count += 1
-    return NHL_team_IDs
+    for team in teams:
+        # breakpoint()
+        this_team = Team(team['id'])
+
+
+    def fetch_team_id(team):
+        return team['id']
+
+    return map(fetch_team_id, Team.all)
+        # team_count = 0
+
+        # while team_count < 32:
+        #     NHL_team_IDs.append(teams[team_count]['id'])
+        #     team_count += 1
+        # return NHL_team_IDs
 
 ### moved to app logic to call from Class: Team
 # def get_active_players():
@@ -41,3 +51,4 @@ def get_active_teams():
 
 # print(selected_player.attributes)
 
+get_active_teams()
