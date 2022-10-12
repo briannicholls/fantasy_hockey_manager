@@ -1,11 +1,21 @@
 from API_serv import *
 
 class Player:
-  def __init__(self,ID):
+  all = []
+
+  player_count = 0
+
+  def __init__(self,ID, data):
 
     self.ID = ID
+    self.data_from_player = data
 
-    self.attributes = get_player(self.ID)
+    Player.player_count +=1
+
+    self.all.append(self)
+    print("Player " + str(self.ID) +f" - {self.data_from_player['person']['fullName']}" + " Created")
+
+
     
     self.game_log = get_game_log(self.ID)
 
@@ -37,5 +47,4 @@ class Player:
 
 
   def __str__(self):
-    return "The Player is {}.".format(self.name)
-
+    return print(self.ID)
