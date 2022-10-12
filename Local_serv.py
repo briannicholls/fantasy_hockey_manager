@@ -11,44 +11,40 @@ from Team import Team
 ### generate a list of all players (dictionaries)
 
 def get_active_teams():
-    # get all active team IDs
-    NHL_team_IDs = []
-    teams = team_id()
+    # get all active teams
+    teams = fetch_teams()
 
     for team in teams:
         # breakpoint()
-        this_team = Team(team['id'])
+        Team(team['id'],team)
 
 
     def fetch_team_id(team):
         return team['id']
 
+    # map the team id and the teams data to the class variable
     return map(fetch_team_id, Team.all)
-        # team_count = 0
 
-        # while team_count < 32:
-        #     NHL_team_IDs.append(teams[team_count]['id'])
-        #     team_count += 1
-        # return NHL_team_IDs
 
-### moved to app logic to call from Class: Team
-# def get_active_players():
-#     # generate a list of all active players
-#     NHL_players = []
+def get_active_players():
+    #get all active team data
+    all_teams = Team.all
 
-#     for team in NHL_team_IDs:
-#         roster = team_roster(team)
-#         for player in roster: 
-#             player_array = player['person']
-#             # print(player_array)
-#             NHL_players.append(player_array)
-#     return NHL_players
 
-  
-## instantiate the class Player
-
-# selected_player = Player(NHL_players[0]['id'])
-
-# print(selected_player.attributes)
-
-get_active_teams()
+    for team in all_teams:
+        # breakpoint()
+        i = 0
+        for player in team.roster: 
+            if i <1:
+                player_id = player['person']['id']  
+                Player(player_id,player)
+                i = i + 1
+                # breakpoint()
+            else:
+                pass
+    
+    def fetch_player_id(player):
+        return player['id']
+    
+    #map the player id and the player data to class variable
+    return map(fetch_player_id, Player.all)
