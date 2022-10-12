@@ -21,7 +21,7 @@ ENDPOINT_DICT=  {
     'win_loss_split' :  '/people/{}/stats?stats=winLoss&season={}',
     'game_box' :        '/game/{}/boxscore',
     'game_live' :       '/game/{}/feed/live',
-    'team_id' :         '/teams',
+    'fetch_teams' :     '/teams',
     'team_schedule' :   '/schedule?teamId={}&startDate={}&endDate={}',
     'team_roster' :     '/teams/{}?expand=team.roster',
     }
