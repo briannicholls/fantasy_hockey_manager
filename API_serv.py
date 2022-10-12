@@ -29,27 +29,27 @@ def get_game_log(player_id):
 
 def season_stat(player_id):
     season_stats = http_get(ENDPOINT_DICT['season_stat'].format(player_id,CURRENT_SEASON))
-    return season_stats['stats'][0]['splits'][0]
+    return season_stats['stats'][0]['splits']
 
 
 def div_split(player_id):
     div_stats = http_get(ENDPOINT_DICT['div_split'].format(player_id,CURRENT_SEASON))
-    return div_stats['stats'][0]['splits'][0]
+    return div_stats['stats'][0]['splits']
 
 
 def mon_split(player_id):
     mon_stats = http_get(ENDPOINT_DICT['mon_split'].format(player_id,CURRENT_SEASON))
-    return mon_stats['stats'][0]['splits'][0]
+    return mon_stats['stats'][0]['splits']
 
 
 def week_split(player_id):
     week_split = http_get(ENDPOINT_DICT['week_split'].format(player_id,CURRENT_SEASON))
-    return week_split['stats'][0]['splits'][0]
+    return week_split['stats'][0]['splits']
 
 
 def league_stat(player_id):
     league_stat = http_get(ENDPOINT_DICT['league_stat'].format(player_id,CURRENT_SEASON))
-    return league_stat['stats'][0]['splits'][0]
+    return league_stat['stats'][0]['splits']
 
 
 def season_pace(player_id):
@@ -60,7 +60,7 @@ def season_pace(player_id):
 
 def sit_goals(player_id):
     sit_goals = http_get(ENDPOINT_DICT['sit_goals'].format(player_id,CURRENT_SEASON))
-    return sit_goals['stats'][0]['splits'][0]
+    return sit_goals['stats'][0]['splits']
 
 
 def day_split(player_id):
@@ -101,8 +101,8 @@ def game_live(game_id):
 
 
 # get all teams
-def team_id():
-    response = http_get(ENDPOINT_DICT['team_id'])
+def fetch_teams():
+    response = http_get(ENDPOINT_DICT['fetch_teams'])
     return response['teams']
 
 
