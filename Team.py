@@ -12,12 +12,20 @@ class Team:
     # self.details = http_get_team_details(ID)
 
     self.all.append(self)
-    print("Team " + str(self.ID) + " Created")
+    print("Team " + str(self.ID) +f" - {self.data_from_teams['name']}" + " Created")
 
   def __str__():
     print(self.ID)
 
   # todo: dont want to create duplicates
   def save(self):
+    pass
     # self.all.append(self)
     # print("Team " + str(self.ID) + " Created")
+
+
+  @classmethod
+  def find_team(cls, name, birth_year):
+    # calculate age an set it as a age
+    # return new object
+    return cls(name, date.today().year - birth_year)
