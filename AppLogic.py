@@ -4,31 +4,25 @@ from Team import *
 
 print("Welcome to the Fantasy Hockey Manager's Helper \n")
 
-#get all teams by ID in list
+#get all teams from API
 
-all_teams = get_active_teams()
+teams = get_active_teams()
 
-print(all_teams)
+print(Team.all)
 
-#instatiate all teams
-active_players = []
+#get all players from API
 
-# roster = Team(all_teams[0])
-# print (roster.roster)
+players = get_active_players()
 
+#print of Class variables example
 
-for id in all_teams:
-    team = Team(id)
-    for player in team.roster:
-        active_players.append(player)
-    
+print(Player.all[0])
 
-# print(len(active_players))
-# print(active_players[826])
+print(Player.player_count)
 
 
 
 
 
-
+print("\n")
 print("Please search for a player by name")
