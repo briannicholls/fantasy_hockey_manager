@@ -10,19 +10,35 @@ teams = get_active_teams()
 
 print(Team.all)
 
-#get all players from API
-
-players = get_active_players()
-
-#print of Class variables example
-
-print(Player.all[0])
-
-print(Player.player_count)
-
-
-
-
-
+# select a team by name
+Team.select_team("New Jersey Devils")
 print("\n")
-print("Please search for a player by name")
+print("\n")
+
+print(Team.current_team) 
+print("\n")
+print("\n")
+
+
+
+###commented player information to reduce run-time while working on Teams
+# #get all players from API
+
+# players = get_active_players()
+
+# #print of Class variables example
+
+# print(Player.all)
+# print("\n")
+# print("\n")
+
+# #print pf class variables example
+# print(Player.player_count)
+# print("\n")
+# print("\n")
+
+
+
+
+# #continue
+# print("Please search for a player by name")
