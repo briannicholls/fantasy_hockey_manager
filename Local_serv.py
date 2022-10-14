@@ -37,7 +37,7 @@ def get_active_players():
         for player in team.roster: 
             if i <1:
                 player_id = player['person']['id']  
-                Player(player_id,player)
+                Player(player_id,get_player(player_id))
                 i = i + 1
                 # breakpoint()
             else:
