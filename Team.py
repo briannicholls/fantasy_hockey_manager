@@ -7,8 +7,8 @@ class Team:
   def __init__(self,ID,data):
     self.ID = ID
     self.data_from_teams = data
-    # breakpoint()
     self.name = data['name']
+
     # self.schedule = team_schedule(ID)
     self.roster = team_roster(ID)
 
