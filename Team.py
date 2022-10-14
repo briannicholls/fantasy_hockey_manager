@@ -21,13 +21,6 @@ class Team:
   def __str__(self):
     return( str(self.ID) )
 
-  # todo: dont want to create duplicates
-  def save(self):
-    pass
-    # self.all.append(self)
-    # print("Team " + str(self.ID) + " Created")
-
-
   @classmethod
   def select_team(cls, name):
     all_teams = Team.all
