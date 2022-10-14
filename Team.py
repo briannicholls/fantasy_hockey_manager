@@ -34,13 +34,7 @@ class Team:
     for team in all_teams:
       if team.data_from_teams['name'] == name:
         Team.current_team = team
+        return team
         # can use team.data_from_teams, to produce team information
         # can use team.roster, to produce roster information
         # however, can't use just 'team'
-
-
-
-    
-    
-    
-    
