@@ -13,7 +13,7 @@ class Player:
     Player.player_count +=1
 
     self.all.append(self)
-    print("Player " + str(self.ID) +f" - {self.data_from_player['person']['fullName']}" + " Created")
+    print("Player " + str(self.ID) + f" - {self.data_from_player[0]['fullName']}" + " Created")
 
 
     
@@ -42,9 +42,5 @@ class Player:
     self.schedule = player_schedule(self.ID)
 
     
-    
-
-
-
   def __str__(self):
-    return print(self.ID)
+    return(self.ID)
