@@ -10,24 +10,38 @@ print(conn.get_dsn_parameters(), "\n")
 # Open a cursor to perform database operations
 cur = conn.cursor()
 
-# Execute a query
-cur.execute("""
+# Build query string
+query_create_tables = """
 CREATE TABLE IF NOT EXISTS players (
   id serial,
   external_id VARCHAR   UNIQUE NOT NULL,
   full_name   VARCHAR   NOT NULL
 );
-CREATE TABLE IF NOT EXISTS teams (
-  id serial,
-  external_id VARCHAR   UNIQUE NOT NULL,
-  name        VARCHAR   NOT NULL
-);
+"""
 
-INSERT INTO "teams"   VALUES ( 1, 'XXX-XXX' , 'Test Team' ) ON CONFLICT DO NOTHING;
-INSERT INTO "players" VALUES ( 2, 'XXX-XXX' , 'Test Player' ) ON CONFLICT DO NOTHING;
+# Execute a query
+cur.execute( query_create_tables )
+conn.commit()
 
-SELECT * FROM teams;
-""")
+# create function to create player
+def create_player(connection, cursor, player_attributes):
+  q = "INSERT INTO players VALUES ( %s, %s, %s ) ON CONFLICT DO NOTHING;"
+  cursor.execute( q, player_attributes )
+  connection.commit()
+
+# # create several players
+# TODO: for some reason only the first player is created. Not sure why yet
+create_player(conn, cur, ( 4, 'XXX-XXX' , 'jhtfjyt Howser'     ) )
+print("created")
+create_player(conn, cur, ( 2, 'XXX-XXX' , 'James Van Der Beek' ) )
+print("created")
+create_player(conn, cur, ( 3, 'XXX-XXX' , 'Freddie Prince Jr.' ) )
+print("created")
+
+# select players
+cur.execute("SELECT * FROM players;")
 
 # Retrieve query results
-records = cur.fetchall()
+players = cur.fetchall()
+
+print( players )
